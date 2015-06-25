@@ -1,0 +1,43 @@
+{
+  "name": "error-class",
+  "description": "Typed errors that closely emulate the native Error class.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "email": "0x8890@airmail.cc",
+    "url": "http://0x8890.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0x8890/error-class"
+  },
+  "scripts": {
+    "lint": "eslint lib test",
+    "test": "npm run lint && node test | tap-dot",
+    "coverage": "istanbul cover test"
+  },
+  "main": "./lib/index.js",
+  "devDependencies": {
+    "eslint": "0.23.0",
+    "istanbul": "0.3.16",
+    "mkdirp": "0.5.1",
+    "rimraf": "2.4.0",
+    "tap-dot": "1.0.0",
+    "tape": "4.0.0"
+  },
+  "files": [
+    "lib/",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "keywords": [
+    "error",
+    "type",
+    "typed",
+    "custom",
+    "native"
+  ]
+}
