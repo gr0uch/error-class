@@ -32,7 +32,9 @@ hungryError.hasOwnProperty('stack') // true
 // Just like native errors, it doesn't require using `new`.
 const thirstyError = HumanError(`I'm thirsty!`)
 Object.keys(thirstyError).length === 0 // True, all properties are non-enumerable.
+Object.keys(Object.getPrototypeOf(instance)).length === 0 // Prototype non-enumerable.
 thirstyError.constructor === HumanError // True.
+thirstyError.constructor.name === 'HumanError' // True.
 thirstyError instanceof Error // True, errors inherit from native `Error` class.
 thirstyError instanceof HumanError // Also true, of course.
 ```
