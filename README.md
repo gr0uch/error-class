@@ -4,7 +4,7 @@
 [![npm Version](https://img.shields.io/npm/v/error-class.svg?style=flat-square)](https://www.npmjs.com/package/error-class)
 [![License](https://img.shields.io/npm/l/error-class.svg?style=flat-square)](https://raw.githubusercontent.com/0x8890/error-class/master/LICENSE)
 
-This module provides typed errors that closely emulate the native `Error` class.
+This module provides typed errors that closely emulate the native `Error` class to a pedantic degree.
 
 ```
 $ npm install error-class
@@ -24,6 +24,10 @@ const hungryError = new HumanError(`I'm hungry!`)
 hungryError.name // 'HumanError'
 hungryError.message // `I'm hungry!`
 hungryError.stack // Platform-specific error stack trace.
+hungryError.hasOwnProperty('name') // false (!)
+hungryError.hasOwnProperty('message') // true
+hungryError.hasOwnProperty('stack') // true
+
 
 // Just like native errors, it doesn't require using `new`.
 const thirstyError = HumanError(`I'm thirsty!`)
