@@ -13,15 +13,11 @@
   },
   "scripts": {
     "lint": "eslint lib test",
-    "test": "npm run lint && node test | tap-dot",
-    "coverage": "istanbul cover test"
+    "test": "npm run lint && node test | tap-dot"
   },
   "main": "./lib/index.js",
   "devDependencies": {
-    "eslint": "0.23.0",
-    "istanbul": "0.3.16",
-    "mkdirp": "0.5.1",
-    "rimraf": "2.4.0",
+    "eslint": "0.24.0",
     "tap-dot": "1.0.0",
     "tape": "4.0.0"
   },
