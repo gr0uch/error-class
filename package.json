@@ -1,7 +1,7 @@
 {
   "name": "error-class",
   "description": "Typed errors that closely emulate the native Error class.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "author": {
     "email": "0x8890@airmail.cc",
@@ -13,13 +13,12 @@
   },
   "scripts": {
     "lint": "eslint lib test",
-    "test": "npm run lint && node test | tap-dot"
+    "test": "npm run lint && node test"
   },
   "main": "./lib/index.js",
   "devDependencies": {
-    "eslint": "0.24.0",
-    "tap-dot": "1.0.0",
-    "tape": "4.0.0"
+    "eslint": "^0.24.1",
+    "tapdance": "^2.0.2"
   },
   "files": [
     "lib/",
