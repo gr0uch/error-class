@@ -1,7 +1,7 @@
 {
   "name": "error-class",
   "description": "Typed errors that closely emulate the native Error class.",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "author": {
     "email": "0x8890@airmail.cc",
