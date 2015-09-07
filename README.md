@@ -16,6 +16,8 @@ $ npm install error-class
 The default export is a function that accepts two arguments, the name of the typed error, and an optional function which gets invoked in the context of the error instance with the error arguments after the error setup is completed.
 
 ```js
+import errorClass from 'error-class'
+
 const SpecialError = errorClass('SpecialError', function () {
   if (arguments.length > 1) this.specialProperty = arguments[1]
 })
