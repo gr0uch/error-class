@@ -1,6 +1,6 @@
 var assert = require('assert')
 var t = require('tapdance')
-var errorClass = require('../lib')
+var errorClass = require('./')
 
 
 t.comment('wrong argument')
@@ -9,6 +9,9 @@ t.fail(function () { errorClass(1234) }, 'argument must be string')
 
 var fooError = errorClass('FooError')
 var FooError = errorClass('FooError')
+var FnError = errorClass('FnError', function () {
+  this.message = arguments[0]
+})
 var instance
 
 
@@ -24,8 +27,14 @@ t.comment('no constructor')
 
 try { throw Error('omg') }
 catch (error) { instance = fooError(error.message) }
-
 checkInstance(instance, fooError)
+
+
+t.comment('function invocation')
+
+instance = new FnError({ foo: 'bar' })
+t.pass(function () { assert.equal(instance.message.foo, 'bar') },
+  'message is re-assigned')
 
 
 function checkInstance (instance, errorConstructor) {

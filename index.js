@@ -2,17 +2,27 @@
 var hasCaptureStackTrace = 'captureStackTrace' in Error
 var hasSetPrototypeOf = 'setPrototypeOf' in Object
 
+// Invalid JavaScript identifiers.
+var invalidName = /[^0-9a-zA-Z_$]/
 
-module.exports = function errorClass (name) {
+
+module.exports = function errorClass (name, fn) {
   if (!name || typeof name !== 'string')
-    throw Error('Argument "name" must be a string.')
+    throw TypeError('Argument "name" must be a non-empty string.')
+
+  if (invalidName.test(name))
+    throw Error('Argument "name" is an invalid identifier.')
 
   // This is basically `eval`, there's no other way to dynamically define a
   // function name.
-  var error = Function('setupError',
-    'return function ' + name + ' (message) {' +
-    'if (!(this instanceof ' + name + ')) return new ' + name + '(message); ' +
-    'setupError.call(this, message) }')(setupError)
+  var error = Function('setupError', 'fn',
+    'return function ' + name + ' () { ' +
+    'if (!(this instanceof ' + name + ')) ' +
+    'return new (' + name + '.bind.apply(' + name +
+      ', Array.prototype.concat.apply([ null ], arguments))); ' +
+    'setupError.apply(this, arguments); ' +
+    (fn ? 'fn.apply(this, arguments); ' : '') +
+    '}')(setupError, fn)
 
   error.prototype = Object.create(Error.prototype, {
     constructor: nonEnumerableProperty(error),
