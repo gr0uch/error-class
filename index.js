@@ -2,20 +2,14 @@
 var hasCaptureStackTrace = 'captureStackTrace' in Error
 var hasSetPrototypeOf = 'setPrototypeOf' in Object
 
-// Invalid JavaScript identifiers.
-var invalidName = /[^0-9a-zA-Z_$]/
-
 
 module.exports = function errorClass (name, fn) {
   if (!name || typeof name !== 'string')
     throw TypeError('Argument "name" must be a non-empty string.')
 
-  if (invalidName.test(name))
-    throw Error('Argument "name" is an invalid identifier.')
-
   // This is basically `eval`, there's no other way to dynamically define a
   // function name.
-  var error = Function('setupError', 'fn',
+  var ErrorClass = Function('setupError', 'fn',
     'return function ' + name + ' () { ' +
     'if (!(this instanceof ' + name + ')) ' +
     'return new (' + name + '.bind.apply(' + name +
@@ -24,15 +18,16 @@ module.exports = function errorClass (name, fn) {
     (fn ? 'fn.apply(this, arguments); ' : '') +
     '}')(setupError, fn)
 
-  error.prototype = Object.create(Error.prototype, {
-    constructor: nonEnumerableProperty(error),
+  ErrorClass.prototype = Object.create(Error.prototype, {
+    constructor: nonEnumerableProperty(ErrorClass),
     name: nonEnumerableProperty(name)
   })
 
-  if (hasSetPrototypeOf) Object.setPrototypeOf(error, Error)
-  else error.__proto__ = Error
+  // The `setPrototypeOf` method is part of ES6.
+  if (hasSetPrototypeOf) Object.setPrototypeOf(ErrorClass, Error)
+  else ErrorClass.__proto__ = Error
 
-  return error
+  return ErrorClass
 }
 
 
@@ -46,15 +41,17 @@ function setupError (message) {
     Object.defineProperty(this, 'stack',
       nonEnumerableProperty(Error(message).stack))
 
+  // Use the `+` operator with an empty string to implicitly type cast the
+  // `message` argument into a string.
   Object.defineProperty(this, 'message',
     nonEnumerableProperty(message !== undefined ? '' + message : ''))
 }
 
 
 function nonEnumerableProperty (value) {
+  // The field `enumerable` is `false` by default.
   return {
     value: value,
-    enumerable: false,
     writable: true,
     configurable: true
   }
