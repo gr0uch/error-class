@@ -44,7 +44,7 @@ function setupError (message) {
   // Use the `+` operator with an empty string to implicitly type cast the
   // `message` argument into a string.
   Object.defineProperty(this, 'message',
-    nonEnumerableProperty(message !== undefined ? '' + message : ''))
+    nonEnumerableProperty(message !== void 0 ? '' + message : ''))
 }
 
 
