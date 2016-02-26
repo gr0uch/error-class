@@ -37,7 +37,6 @@ hungryError.hasOwnProperty('name') // false
 hungryError.hasOwnProperty('message') // true
 hungryError.hasOwnProperty('stack') // true
 
-
 // Just like native errors, it doesn't require using `new`.
 const thirstyError = HumanError('I\'m thirsty!')
 Object.keys(thirstyError).length === 0 // True, all properties are non-enumerable.
