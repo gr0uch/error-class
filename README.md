@@ -16,11 +16,9 @@ $ npm install error-class
 The default export is a function that accepts only one argument, the name of the typed error.
 
 ```js
-var errorClass = require('error-class')
-
-var SpecialError = errorClass('SpecialError')
-
-var instance = new SpecialError('foobar')
+const errorClass = require('error-class')
+const SpecialError = errorClass('SpecialError')
+const instance = new SpecialError('foobar')
 instance.message // 'foobar'
 ```
 
@@ -28,21 +26,20 @@ instance.message // 'foobar'
 ## Details
 
 ```js
-import errorClass from 'error-class'
-
+const errorClass = require('error-class')
 const HumanError = errorClass('HumanError')
 
-const hungryError = new HumanError(`I'm hungry!`)
+const hungryError = new HumanError('I\'m hungry!')
 hungryError.name // 'HumanError'
-hungryError.message // `I'm hungry!`
+hungryError.message // 'I'm hungry!'
 hungryError.stack // Platform-specific error stack trace.
-hungryError.hasOwnProperty('name') // false (!)
+hungryError.hasOwnProperty('name') // false
 hungryError.hasOwnProperty('message') // true
 hungryError.hasOwnProperty('stack') // true
 
 
 // Just like native errors, it doesn't require using `new`.
-const thirstyError = HumanError(`I'm thirsty!`)
+const thirstyError = HumanError('I\'m thirsty!')
 Object.keys(thirstyError).length === 0 // True, all properties are non-enumerable.
 Object.keys(Object.getPrototypeOf(instance)).length === 0 // Prototype non-enumerable.
 thirstyError.constructor === HumanError // True.
