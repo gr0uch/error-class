@@ -6,12 +6,14 @@ module.exports = errorClass
 
 
 function errorClass (name) {
+  var ErrorClass
+
   if (!name || typeof name !== 'string')
-    throw TypeError('Argument "name" must be a non-empty string.')
+    throw new TypeError('Argument "name" must be a non-empty string.')
 
   // This is basically `eval`, there's no other way to dynamically define a
   // function name.
-  var ErrorClass = Function('setupError',
+  ErrorClass = new Function('setupError',
     'return function ' + name + ' () { ' +
     'if (!(this instanceof ' + name + ')) ' +
     'return new (' + name + '.bind.apply(' + name +

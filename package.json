@@ -1,7 +1,7 @@
 {
   "name": "error-class",
   "description": "Typed errors that closely emulate the native Error class.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "author": {
     "email": "0x8890@airmail.cc",
@@ -16,20 +16,15 @@
     "test": "npm run lint && node test"
   },
   "devDependencies": {
-    "eslint": "^2.2.0",
-    "eslint-config-0x8890": "^1.0.2",
+    "eslint": "^2.11.1",
+    "eslint-config-boss": "^1.0.3",
     "tapdance": "^4.1.1"
   },
   "eslintConfig": {
-    "extends": "0x8890",
+    "extends": "boss/es5",
     "rules": {
-      "func-names": 0,
-      "new-cap": 0,
-      "no-var": 0,
-      "no-proto": 0,
       "no-new-func": 0,
-      "strict": 0,
-      "vars-on-top": 0
+      "strict": 0
     }
   },
   "files": [

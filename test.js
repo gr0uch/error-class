@@ -2,14 +2,13 @@ var assert = require('assert')
 var t = require('tapdance')
 var errorClass = require('./')
 
+var fooError, FooError, instance
 
 t.comment('wrong argument')
 t.fail(function () { errorClass(1234) }, 'argument must be string')
 
-
-var fooError = errorClass('FooError')
-var FooError = errorClass('FooError')
-var instance
+fooError = errorClass('FooError')
+FooError = errorClass('FooError')
 
 t.comment('new constructor')
 
