@@ -1,8 +1,8 @@
 # Error Class
 
-[![Build Status](https://img.shields.io/travis/0x8890/error-class/master.svg?style=flat-square)](https://travis-ci.org/0x8890/error-class)
+[![Build Status](https://img.shields.io/travis/sapeien/error-class/master.svg?style=flat-square)](https://travis-ci.org/sapeien/error-class)
 [![npm Version](https://img.shields.io/npm/v/error-class.svg?style=flat-square)](https://www.npmjs.com/package/error-class)
-[![License](https://img.shields.io/npm/l/error-class.svg?style=flat-square)](https://raw.githubusercontent.com/0x8890/error-class/master/LICENSE)
+[![License](https://img.shields.io/npm/l/error-class.svg?style=flat-square)](https://raw.githubusercontent.com/sapeien/error-class/master/LICENSE)
 
 This module provides typed errors that closely emulate the native `Error` class to a pedantic degree.
 
@@ -50,4 +50,4 @@ thirstyError instanceof HumanError // Also true, of course.
 
 ## License
 
-This software is licensed under the [MIT License](//github.com/0x8890/error-class/blob/master/LICENSE).
+This software is licensed under the [MIT License](https://github.com/sapeien/error-class/blob/master/LICENSE).

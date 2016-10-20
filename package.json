@@ -3,13 +3,9 @@
   "description": "Typed errors that closely emulate the native Error class.",
   "version": "2.0.1",
   "license": "MIT",
-  "author": {
-    "email": "0x8890@airmail.cc",
-    "url": "http://0x8890.com"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/0x8890/error-class"
+    "url": "https://github.com/sapeien/error-class"
   },
   "scripts": {
     "lint": "eslint .",
