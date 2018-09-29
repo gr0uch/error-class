@@ -1,72 +1,36 @@
-var assert = require('assert')
-var t = require('tapdance')
+var run = require('tapdance')
 var errorClass = require('./')
 
 var fooError, FooError, instance
 
-t.comment('wrong argument')
-t.fail(function () { errorClass(1234) }, 'argument must be string')
+run(function (assert, comment) {
+  comment('wrong argument')
+  try { errorClass(1234) }
+  catch (e) { assert(true, 'argument must be string') }
 
-fooError = errorClass('FooError')
-FooError = errorClass('FooError')
+  fooError = errorClass('FooError')
+  FooError = errorClass('FooError')
 
-t.comment('new constructor')
+  comment('new constructor')
+  try { throw Error('omg') }
+  catch (error) { instance = new FooError(error.message) }
+  checkInstance(instance, FooError)
 
-try { throw Error('omg') }
-catch (error) { instance = new FooError(error.message) }
+  comment('no constructor')
+  try { throw Error('omg') }
+  catch (error) { instance = fooError(error.message) }
+  checkInstance(instance, fooError)
 
-checkInstance(instance, FooError)
-
-
-t.comment('no constructor')
-
-try { throw Error('omg') }
-catch (error) { instance = fooError(error.message) }
-checkInstance(instance, fooError)
-
-
-function checkInstance (instance, errorConstructor) {
-  t.pass(function () {
-    assert(instance instanceof errorConstructor)
-  }, 'instanceof operator works')
-
-  t.pass(function () {
-    assert(instance instanceof Error)
-  }, 'instanceof error')
-
-  t.pass(function () {
-    assert(instance.constructor === errorConstructor)
-  }, 'constructor is correct')
-
-  t.pass(function () {
-    assert(instance.constructor.name === 'FooError')
-  }, 'constructor name is correct')
-
-  t.pass(function () {
-    assert(instance.name === 'FooError')
-  }, 'name is correct')
-
-  t.pass(function () {
-    assert(instance.message === 'omg')
-  }, 'message is correct')
-
-  t.pass(function () {
-    assert(!instance.hasOwnProperty('name'))
-  }, 'name isn\'t property')
-
-  t.pass(function () {
-    assert(instance.hasOwnProperty('message'))
-  }, 'message is property')
-
-  t.pass(function () {
-    assert(instance.hasOwnProperty('stack'))
-  }, 'stack is property')
-
-  t.pass(function () {
-    assert(~instance.stack.indexOf('FooError'))
-  }, 'stack trace contains name')
-
-  t.pass(function () {
-    assert(!Object.keys(instance).length)
-  }, 'properties not enumerable')
-}
+  function checkInstance (instance, errorConstructor) {
+    assert(instance instanceof errorConstructor, 'instanceof operator works')
+    assert(instance instanceof Error, 'instanceof error')
+    assert(instance.constructor === errorConstructor, 'constructor is correct')
+    assert(instance.name === 'FooError', 'name is correct')
+    assert(instance.message === 'omg', 'message is correct')
+    assert(!instance.hasOwnProperty('name'), 'name isn\'t property')
+    assert(instance.hasOwnProperty('message'), 'message is property')
+    assert(instance.hasOwnProperty('stack'), 'stack is property')
+    assert(~instance.stack.indexOf('FooError'), 'stack trace contains name')
+    assert(!Object.keys(instance).length, 'properties not enumerable')
+  }
+})
